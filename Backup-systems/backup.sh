@@ -1,7 +1,7 @@
 #!/bin/bash
 # =====================================================
 # Automated Backup System
-# Author: Nandini Gadambli
+# Author: Nangi Thanusha
 # Description:
 #   Creates compressed backups with checksum verification,
 #   automatic cleanup (daily, weekly, monthly),
