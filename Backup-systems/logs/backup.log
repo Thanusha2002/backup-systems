@@ -1,0 +1,45 @@
+[2025-11-03 02:12:49] ERROR: Configuration file not found!
+[2025-11-03 02:13:01] ERROR: Configuration file not found!
+[2025-11-03 02:13:15] ERROR: Configuration file not found!
+[2025-11-03 02:13:34] ERROR: Configuration file not found!
+[2025-11-03 02:14:32] ERROR: Configuration file not found!
+[2025-11-03 02:16:36] ERROR: Configuration file not found!
+[2025-11-03 02:17:12] ERROR: Configuration file not found!
+[2025-11-03 02:17:41] ERROR: Configuration file not found!
+[2025-11-03 02:39:13] INFO: Backup job started at 2025-11-03 02:39:13
+[2025-11-03 02:39:13] DRY-RUN: Would create backup of test_data at ./backups/backup-2025-11-03-0239.tar.gz
+[2025-11-03 02:40:50] INFO: Backup job started at 2025-11-03 02:40:50
+[2025-11-03 02:40:50] INFO: Starting backup for test_data...
+[2025-11-03 02:40:51] SUCCESS: Backup created: backup-2025-11-03-0240.tar.gz
+[2025-11-03 02:40:51] INFO: Verifying checksum for backup-2025-11-03-0240.tar.gz...
+./backups/backup-2025-11-03-0240.tar.gz: OK
+[2025-11-03 02:40:51] SUCCESS: Checksum verified successfully.
+[2025-11-03 02:40:51] INFO: Archive integrity test passed.
+[2025-11-03 02:40:51] INFO: Starting cleanup of old backups...
+[2025-11-03 02:40:52] INFO: Cleanup completed.
+[2025-11-03 02:40:52] INFO: Backup job completed successfully.
+[2025-11-03 02:41:10] INFO: Backup job started at 2025-11-03 02:41:10
+[2025-11-03 02:41:10] ERROR: Source directory not found: --list
+[2025-11-03 02:42:10] INFO: Backup job started at 2025-11-03 02:42:10
+[2025-11-03 02:42:10] INFO: Starting backup for test_data...
+[2025-11-03 02:42:11] SUCCESS: Backup created: backup-2025-11-03-0242.tar.gz
+[2025-11-03 02:42:11] INFO: Verifying checksum for backup-2025-11-03-0242.tar.gz...
+./backups/backup-2025-11-03-0242.tar.gz: OK
+[2025-11-03 02:42:11] SUCCESS: Checksum verified successfully.
+[2025-11-03 02:42:11] INFO: Archive integrity test passed.
+[2025-11-03 02:42:11] INFO: Starting cleanup of old backups...
+[2025-11-03 02:42:11] INFO: Cleanup completed.
+[2025-11-03 02:42:11] INFO: Backup job completed successfully.
+[2025-11-03 03:04:54] ERROR: Backup file not found: backup-2024-11-03-1430.tar.gz
+[2025-11-03 03:07:08] INFO: Backup job started at 2025-11-03 03:07:08
+[2025-11-03 03:07:08] ERROR: Source directory not found: --list
+[2025-11-03 03:49:12] INFO: Backup job started at 2025-11-03 03:49:12
+[2025-11-03 03:49:13] INFO: Starting backup for test_data...
+[2025-11-03 03:49:13] SUCCESS: Backup created: backup-2025-11-03-0349.tar.gz
+[2025-11-03 03:49:13] INFO: Verifying checksum for backup-2025-11-03-0349.tar.gz...
+./backups/backup-2025-11-03-0349.tar.gz: OK
+[2025-11-03 03:49:13] SUCCESS: Checksum verified successfully.
+[2025-11-03 03:49:13] INFO: Archive integrity test passed.
+[2025-11-03 03:49:13] INFO: Starting cleanup of old backups...
+[2025-11-03 03:49:14] INFO: Cleanup completed.
+[2025-11-03 03:49:14] INFO: Backup job completed successfully.
