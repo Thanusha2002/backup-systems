@@ -1,185 +1,124 @@
-#  Bash Scripting Project: Automated Backup System
+🗂️ Backup Systems
+📘 Overview
 
-##  Project Overview
+Backup Systems is a simple yet efficient shell-based project designed to automate the process of creating, managing, and restoring backups.
+It ensures data safety by compressing target directories into .tar.gz archives and storing them in an organized folder structure.
 
-This project is an **Automated Backup System** built using Bash scripting. It automatically backs up important folders, verifies the backups, deletes old backups according to retention rules, and logs every action.
+This script is ideal for users who want a lightweight and customizable backup solution for local systems without relying on heavy third-party tools.
 
-### Why It’s Useful
+⚙️ Features
 
-* Prevents data loss by automatically backing up folders.
-* Cleans old backups to save disk space.
-* Verifies backup integrity with checksums.
-* Configurable through an external file (`backup.config`).
-* Supports dry-run, restore, and list features.
+✅ Automated Backups – Create .tar.gz archives of any specified directory.
+✅ Checksum Verification – Generates and verifies SHA-256 checksum files to ensure data integrity.
+✅ Restore Option – Restore data from an existing backup archive.
+✅ Backup Rotation – Keeps only the most recent backups, automatically removing older ones.
+✅ Logging System – Every operation is logged with timestamps for easy troubleshooting.
+✅ Dry Run Mode – Preview what would happen before executing real backup actions.
+✅ PID Locking – Prevents multiple backup processes from running simultaneously.
 
----
+📁 Project Structure
+Backup-systems/
+├── backups/           # Stores all generated backup files (.tar.gz)
+├── logs/              # Stores log files for each backup or restore operation
+├── test_data/         # Sample data used for testing the backup process
+├── backup.config      # Configuration file (backup source, retention policy, etc.)
+├── backup.sh          # Main backup script (core automation logic)
+└── README.md          # Project documentation
 
-##  Installation Steps
+🧰 Requirements
 
-1. Clone your project repository:
+Before using this script, ensure the following are installed:
 
-   ```bash
-   git clone https://github.com/<yourusername>/backup-system.git
-   cd backup-system
-   ```
-2. Make the script executable:
+bash (v4 or later)
 
-   ```bash
-   chmod +x backup.sh
-   ```
-3. Open `backup.config` and update settings:
+tar
 
-   ```bash
-   BACKUP_DESTINATION=/home/user/backups
-   EXCLUDE_PATTERNS=".git,node_modules,.cache"
-   DAILY_KEEP=7
-   WEEKLY_KEEP=4
-   MONTHLY_KEEP=3
-   ```
-4. Create a test folder:
+sha256sum
 
-   ```bash
-   mkdir -p ~/test_src
-   echo "Hello Backup" > ~/test_src/sample.txt
-   ```
+gzip
 
----
+coreutils (for date, mkdir, etc.)
 
-##  How to Use It
-
-###  Dry Run (Test Mode)
-
-Check what will happen without actually creating backups:
-
-```bash
-./backup.sh --dry-run ~/test_src
-```
-
-**Example output:**
-
-```
-[2025-11-03 10:00:00] INFO: Dry run mode enabled.
-[2025-11-03 10:00:00] INFO: Would backup folder: /home/user/test_src
-[2025-11-03 10:00:00] INFO: Would create archive: backup-2025-11-03-1000.tar.gz
-[2025-11-03 10:00:00] INFO: Would skip: .git, node_modules, .cache
-```
-
-###  Create a Backup
-
-```bash
-./backup.sh ~/test_src
-```
-
-**Example output:**
+🚀 Usage
+1️⃣ Creating a Backup
+./backup.sh ./test_data
 
 
-[2025-11-03 10:02:15] INFO: Starting backup of /home/user/test_src
-[2025-11-03 10:02:20] SUCCESS: Backup created: backup-2025-11-03-1002.tar.gz
-[2025-11-03 10:02:21] INFO: Checksum verified successfully
-[2025-11-03 10:02:23] INFO: Deleted old backup: backup-2025-10-10-0800.tar.gz
+This will:
 
+Compress the test_data/ directory into a .tar.gz archive
 
-###  List Available Backups
+Save it inside the backups/ folder
 
-```bash
+Generate a corresponding .sha256 checksum file
+
+Log the process in the logs/ directory
+
+2️⃣ Listing Available Backups
 ./backup.sh --list
-```
-
-Shows all available backups with size and date.
-
-###  Restore From a Backup
-
-```bash
-./backup.sh --restore backup-2025-11-03-1002.tar.gz --to ~/restored_test
-```
-
-Restores your data to a new folder.
-
----
-
-##  How It Works
-
-### 1. Backup Creation
-
-* Uses `tar` to compress files into `backup-YYYY-MM-DD-HHMM.tar.gz`.
-* Generates SHA256 checksum file to verify integrity.
-
-### 2. Verification
-
-* Recalculates checksum and compares it with saved `.sha256` file.
-* Extracts a test file from the backup to confirm it’s not corrupted.
-
-### 3. Rotation Algorithm (Auto Cleanup)
-
-Keeps:
-
-* **Last 7 daily** backups
-* **Last 4 weekly** backups
-* **Last 3 monthly** backups
-
-Deletes any backups older than these.
-
-### 4. Logging
-
-Every action is saved to `backup.log`.
-
-**Example `backup.log` snippet:**
-
-```
-[2025-11-03 10:02:15] INFO: Starting backup of /home/user/test_src
-[2025-11-03 10:02:20] SUCCESS: Backup created: backup-2025-11-03-1002.tar.gz
-[2025-11-03 10:02:21] INFO: Checksum verified successfully
-[2025-11-03 10:02:23] INFO: Deleted old backup: backup-2025-10-10-0800.tar.gz
-```
-
----
-
-##  Design Decisions
-
-* **Modular Functions:** Each action (backup, verify, cleanup) is a separate function for clarity.
-* **Lock File:** Prevents multiple simultaneous runs.
-* **Config File:** Easy to customize without touching code.
-* **Dry Run Mode:** Lets users test without risk.
-
----
-
-##  Testing
-
-| Test           | Command                                                 | Expected Result              |
-| -------------- | ------------------------------------------------------- | ---------------------------- |
-| Dry Run        | `./backup.sh --dry-run ~/test_src`                      | Shows planned actions only   |
-| Real Backup    | `./backup.sh ~/test_src`                                | Creates archive and checksum |
-| List           | `./backup.sh --list`                                    | Lists backups                |
-| Restore        | `./backup.sh --restore backup-... --to ~/restored_test` | Extracts backup              |
-| Error Handling | `./backup.sh /invalid/path`                             | Shows error message          |
-
----
-
-##  Known Limitations
-
-* Incremental backups not implemented.
-* Email notification simulated (writes to `email.txt`).
-* Rotation algorithm assumes consistent timestamp format.
-
----
-
-##  Example Folder Structure
-
-```
-backup-system/
-├── backup.sh
-├── backup.config
-├── README.md
-└── backups/
-    ├── backup-2025-11-03-1002.tar.gz
-    ├── backup-2025-11-03-1002.tar.gz.sha256
-    └── backup.log
-```
-
-Conclusion
-
-This Bash Scripting project successfully automates the process of creating, verifying, and managing backups. It ensures important files are safely stored, old backups are automatically cleaned, and errors are handled efficiently. The script is configurable, reliable, and easy to use—making it a practical tool for regular system backups.
 
 
+Displays all available backup files inside the backups/ directory.
+
+3️⃣ Restoring a Backup
+./backup.sh --restore backup-2025-11-06-2254.tar.gz --to /path/to/restore/
 
 
+Restores the specified backup file into the given destination path.
+
+4️⃣ Verifying Backup Integrity
+./backup.sh --verify backup-2025-11-06-2254.tar.gz
+
+
+Checks the archive’s checksum to ensure it hasn’t been corrupted.
+
+5️⃣ Dry Run (Simulation)
+./backup.sh --dry-run ./test_data
+
+
+Simulates a backup operation without actually creating or modifying any files.
+
+🧾 Logs
+
+All activities are recorded inside the logs/ directory with timestamps, e.g.:
+
+[2025-11-06 22:54:55] INFO: Creating backup backup-2025-11-06-2254.tar.gz
+[2025-11-06 22:55:10] SUCCESS: Backup created successfully.
+
+⚖️ Configuration (backup.config)
+
+You can customize the behavior of your backup process using the configuration file:
+
+# Example backup.config
+SOURCE_DIR=./test_data
+BACKUP_DIR=./backups
+LOG_DIR=./logs
+RETENTION_COUNT=5
+
+💡 Example Workflow
+
+Place your files in the test_data/ directory.
+
+Run the backup script:
+
+./backup.sh ./test_data
+
+
+Verify backups using:
+
+./backup.sh --list
+
+
+Restore a previous version when needed.
+
+🛠️ Troubleshooting
+Issue	Possible Cause	Solution
+No such file or directory	The directory path or filename is incorrect	Verify the path and try again
+Cannot connect to C: (on Windows Git Bash)	Tar command path issue	Use ./backup.sh ./folder_name from the project root
+Backup not created	Permission issue	Run with appropriate privileges (chmod +x backup.sh)
+👩‍💻 Author
+
+Thanusha2002
+A DevOps enthusiast passionate about automation, Linux, and backup solutions.
+
+GitHub: @Thanusha2002
