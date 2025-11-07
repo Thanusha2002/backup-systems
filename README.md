@@ -225,6 +225,19 @@ monthly_backups=($(find . -type f -name "backup-*.tar.gz" -mtime +28 -printf "%f
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 ##  **Bonus Features**
 
 ### **Dry Run Mode**
@@ -363,6 +376,17 @@ Checksums are used to verify the **integrity** of each backup — ensuring it wa
 
 
 ---
+
+
+
+
+
+
+
+
+
+
+
 
 
 
