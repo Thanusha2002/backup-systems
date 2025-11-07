@@ -395,23 +395,14 @@ Checksums are used to verify the **integrity** of each backup — ensuring it wa
 
 
 ### **Folder Structure**
+Backup-systems/
+├── backups/           # Stores all generated backup files (.tar.gz)
+├── logs/              # Stores log files for each backup or restore operation
+├── test_data/         # Sample data used for testing the backup process
+├── backup.config      # Configuration file (backup source, retention policy, etc.)
+├── backup.sh          # Main backup script (core automation logic)
+└── README.md          # Project documentation
 
-```
-backup/
-├── backup.sh                # Main backup script
-├── backup.config            # Configuration file (settings & exclusions)
-├── backup.log               # Log file storing all actions and errors
-├── email.txt                # Simulated email notifications
-├── restore/                 # Folder where backups can be restored
-├── backupfiles/             # Destination folder where backups are stored
-│    ├── backup-2025-11-04-0857.tar.gz          # Compressed backup
-│    ├── backup-2025-11-04-0857.tar.gz.sha256   # Checksum file for verification
-│    ├── backup.snar                            # Snapshot file for incremental backups
-│
-└── /mnt/c/Users/hp/Documents/files/             # SOURCE folder (contains files to be backed up)
-     ├── a.txt
-     ├── b.txt
-     ├── notes.txt
 
 
 
